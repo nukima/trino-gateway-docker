@@ -1,0 +1,38 @@
+# Ignore macOS system files
+.DS_Store
+
+# Ignore Linux system files
+*~
+
+# Ignore Windows system files
+Thumbs.db
+Desktop.ini
+
+# Ignore node_modules directory
+node_modules/
+
+# Ignore log files
+*.log
+
+# Ignore temporary files
+*.tmp
+*.swp
+
+# Ignore compiled files
+*.class
+*.o
+*.so
+
+# Ignore JAR files
+# *.jar
+
+# Ignore Docker files
+docker-compose.override.yml
+.env
+
+# Ignore IDE specific files
+.vscode/
+.idea/
+
+# Ignore configuration files
+# quickstart-config.yaml
