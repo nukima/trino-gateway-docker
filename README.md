@@ -26,7 +26,7 @@ This repository provides scripts and configurations to set up a Trino Gateway wi
 ## Configuration
 
 - `trino-gateway/quickstart-config.yaml`: Configuration file for the Trino Gateway.
-- `trino-gateway/routing_rules.yml`: Routing rules for the Trino Gateway.
+- `trino-gateway/routing-rules.yml`: Routing rules for the Trino Gateway.
 - `etc/trino-425/config.properties`: Configuration for Trino version 425.
 - `etc/trino-467/config.properties`: Configuration for Trino version 467.
 
