@@ -35,3 +35,7 @@ managedApps:
 
 logging:
     type: external
+
+routingRules:
+  rulesEngineEnabled: true
+  rulesConfigPath: "/home/manhnk/code/test/trino-gateway-docker/trino-gateway/routing-rules.yml"

@@ -1,59 +1,35 @@
-# Trino Gateway Quickstart
+# Trino Gateway Docker Setup
 
-This repository provides a quickstart setup for running a Trino Gateway with PostgreSQL persistence and multiple Trino backends using Docker.
+This repository provides scripts and configurations to set up a Trino Gateway with Docker.
 
-## Repository Structure
+## Directory Structure
 
-- `add-trino-backends.sh`: Script to start Trino servers and add them as backends to the Trino Gateway.
-- `docker-compose.yml`: Docker Compose configuration to set up PostgreSQL, Trino servers, and the Trino Gateway.
-- `gateway-ha-persistence-postgres.sql`: SQL script to initialize the PostgreSQL database schema for the Trino Gateway.
-- `gateway-ha.jar`: The Trino Gateway application JAR file.
-- `quickstart-config.yaml`: Configuration file for the Trino Gateway.
-- `quickstart.sh`: Script to set up and start the Trino Gateway and PostgreSQL database.
-- `stop-docker.sh`: Script to stop and remove Docker containers for PostgreSQL and Trino servers.
+- `etc/`: Contains configuration files for different Trino versions.
+- `script/`: Contains shell scripts and a Python client for managing Trino backends and the gateway.
+- `trino-gateway/`: Contains SQL scripts, JAR files, and configuration files for the Trino Gateway.
 
-## Prerequisites
+## Scripts
 
-- Docker
-- Docker Compose
-- curl
+- `script/quickstart.sh`: Sets up and starts the Trino Gateway and PostgreSQL database.
+- `script/stop-docker.sh`: Stops and removes Docker containers for PostgreSQL and Trino.
+- `script/add-trino-backends.sh`: Adds Trino backends to the gateway.
+- `script/trino-client.py`: Python client to interact with the Trino Gateway.
 
-## Quickstart Guide
+## Usage
 
-1. **Clone the repository:**
-    ```sh
-    git clone <repository-url>
-    cd <repository-directory>
-    ```
-
-2. **Run the quickstart script:**
-    ```sh
-    ./quickstart.sh
-    ```
-    This script will:
-    - Download the [gateway-ha.jar](http://_vscodecontentref_/0) if not present.
-    - Copy the necessary configuration files.
-    - Start the PostgreSQL database and initialize it with the provided SQL script.
-    - Start the Trino Gateway server.
-
-3. **Add Trino backends:**
-    ```sh
-    ./add-trino-backends.sh
-    ```
-    This script will:
-    - Start two Trino servers on different ports.
-    - Add these Trino servers as backends to the Trino Gateway.
-
-4. **Access the Trino Gateway:**
-    - The Trino Gateway will be accessible at `http://localhost:9080`.
-
-## Stopping the Services
-
-To stop and remove the Docker containers for PostgreSQL and Trino servers, run:
-```sh
-./stop-docker.sh
-```
+1. Run `script/quickstart.sh` to set up and start the Trino Gateway and PostgreSQL database.
+2. Use `script/add-trino-backends.sh` to add Trino backends to the gateway.
+3. Use `script/trino-client.py` to interact with the Trino Gateway.
+4. Use `trino-gateway/routing-rules.yml` to define routing rules for the Trino Gateway.
+5. Run `script/stop-docker.sh` to stop and remove the Docker containers.
 
 ## Configuration
-* Trino Gateway Configuration: Modify the `quickstart-config.yaml` file to change the Trino Gateway settings.
-* PostgreSQL Initialization: The `gateway-ha-persistence-postgres.sql` file contains the SQL script to initialize the PostgreSQL database schema.
+
+- `trino-gateway/quickstart-config.yaml`: Configuration file for the Trino Gateway.
+- `trino-gateway/routing_rules.yml`: Routing rules for the Trino Gateway.
+- `etc/trino-425/config.properties`: Configuration for Trino version 425.
+- `etc/trino-467/config.properties`: Configuration for Trino version 467.
+
+## License
+
+This project is licensed under the MIT License.

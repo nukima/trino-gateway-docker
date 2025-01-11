@@ -1,11 +1,11 @@
 #!/usr/bin/env sh
 
 VERSION=7
-
+BASE_DIR=$(pwd)
 # Copy necessary files to current directory
 
 # Check and get the Gateway Jar
-if [[ -f "gateway-ha.jar" ]]; then
+if [[ -f "$BASE_DIR/trino-gateway/gateway-ha.jar" ]]; then
     echo "Found gateway-har.jar file in current directory."
 else
     echo "Failed to find gateway-ha.jar in current directory. Fetching version $VERSION from Maven Central repository."
@@ -13,14 +13,14 @@ else
 fi
 
 # Check and get the Config.yaml
-if [[ -f "quickstart-config.yaml" ]]; then
+if [[ -f "$BASE_DIR/trino-gateway/quickstart-config.yaml" ]]; then
     echo "Found quickstart-config.yaml file in current directory."
 else
     cp ../docs/quickstart-config.yaml ./quickstart-config.yaml
 fi
 
 # Check and get the postgres.sql
-if [[ -f "gateway-ha-persistence-postgres.sql" ]]; then
+if [[ -f "$BASE_DIR/trino-gateway/gateway-ha-persistence-postgres.sql" ]]; then
     echo "Found gateway-ha-persistence-postgres.sql file in current directory."
 else
     cp ../gateway-ha/src/main/resources/gateway-ha-persistence-postgres.sql ./gateway-ha-persistence-postgres.sql
@@ -32,7 +32,7 @@ if docker ps --format '{{.Names}}' | grep -q '^local-postgres$'; then
 else
     echo "PostgreSQL database container 'localhost-postgres' is not running. Proceeding to initialize and run database server."
     export PGPASSWORD=mysecretpassword
-    docker run -v "$(pwd)"/gateway-ha-persistence-postgres.sql:/tmp/gateway-ha-persistence-postgres.sql --name local-postgres -p 5432:5432 -e POSTGRES_PASSWORD=$PGPASSWORD -d postgres:latest
+    docker run -v $BASE_DIR/trino-gateway/gateway-ha-persistence-postgres.sql:/tmp/gateway-ha-persistence-postgres.sql --name local-postgres -p 5432:5432 -e POSTGRES_PASSWORD=$PGPASSWORD -d postgres:latest
     #Make sure the DB has time to initialize
     sleep 5
 
@@ -43,5 +43,5 @@ fi
 
 
 #Start Trino Gateway server.
-export JAVA_HOME=/home/manhnk/.jdks/temurin-17.0.13
-$JAVA_HOME/bin/java -Xmx1g --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED -jar ./gateway-ha.jar server ./quickstart-config.yaml
+JAVA_HOME=/home/manhnk/.jdks/temurin-17.0.13
+$JAVA_HOME/bin/java -Xmx1g --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED -jar $BASE_DIR/trino-gateway/gateway-ha.jar server $BASE_DIR/trino-gateway/quickstart-config.yaml
