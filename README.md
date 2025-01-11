@@ -30,6 +30,6 @@ This repository provides scripts and configurations to set up a Trino Gateway wi
 - `etc/trino-425/config.properties`: Configuration for Trino version 425.
 - `etc/trino-467/config.properties`: Configuration for Trino version 467.
 
-## License
+## References
 
-This project is licensed under the MIT License.
+[Trino Gateway docs](https://github.com/trinodb/trino-gateway/tree/9/docs)
